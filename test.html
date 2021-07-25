@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>使用例 RenderKuro.js</title>
+</head>
+<body>
+	<input type="file" id="file">
+	<button id="btn"></button>
+	<script src="render_kuro.js"></script>
+	<script>
+		let file_element = $get_id("file");
+		$add_event(file, 'change', function(e){
+			let file = e.target.files[0];
+			$file_change(file, 'blob_url', function(get){
+				debugger;
+			});
+		});
+		$add_event($get_id("btn"),'click', function(e){
+		});
+
+	</script>
+</body>
+</html>
