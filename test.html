@@ -1,21 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
+	<meta charset="utf-8">
 	<title>使用例 RenderKuro.js</title>
 </head>
 <body>
 	<input type="file" id="file">
-	<button id="btn"></button>
+	<img src="" class="img_files">
+	<img src="" class="img_files">
+	<audio src="" controls class="audio_files"></audio>
+	<audio src="" controls class="audio_files"></audio>
+	<br>
+	<br>
+	<br>
+
+	<button id="btn">Click here</button>
+
+
+	<h1 id="text"></h1>
 	<script src="render_kuro.js"></script>
 	<script>
 		let file_element = $get_id("file");
+		let img_files = $get_class("img_files");
+		let audio_files = $get_class("audio_files");
 		$add_event(file, 'change', function(e){
 			let file = e.target.files[0];
-			$file_change(file, 'blob_url', function(get){
-				debugger;
+			let type = file.type;
+			$file_change(file, 'blob', function(get_blob){
+				console.log(get_blob);
+
+			});
+			$file_change(file, 'blob_url', function(blob_url){
+				console.log(blob_url);
+
+				if(type.match(/image/)){
+					img_files[0].src = blob_url;
+				}else if(type.match(/audio/)){
+					audio_files[0].src = blob_url;
+				}
+
+			});
+			$file_change(file, "base64", function(base64){
+				console.log(base64);
+				if(type.match(/image/)){
+					img_files[1].src = base64;
+					
+				}else if(type.match(/audio/)){
+					audio_files[1].src = base64;
+				}
 			});
 		});
+
+
 		$add_event($get_id("btn"),'click', function(e){
+			$text_on_element("HelloWorld", text);
 		});
 
 	</script>

@@ -34,19 +34,35 @@ function $file_change(file,change_name, callback){
 	let file_model = file.type;
 
 	if(change_name == "base64"){
-		reader.onload = callback;
+		reader.onload = function(e){
+			debugger;
+			callback(e.target.result);
+		}
 		reader.readAsDataURL(file);
 
 	}else if(change_name == "blob_url"){
-
-		callback(URL.createObjectURL(file, {type: file_model}));
+		let url = URL.createObjectURL(file, {type: file_model});
+		if(url.match(/null/)){
+			console.warn("this blob url includes null   " + url);
+		}
+		callback(url);
 		URL.revokeObjectURL(file);
 		
 	}else if(change_name == "blob"){
-		//まだここは書いてないです
-	}
+		$file_change(file, 'blob_url', function(url){
+			let req = new XMLHttpRequest();
+			req.open("GET", url, true);
+			req.responseType = "blob";
+			req.onload = function(){
+				callback(this.response);
+			}
+			req.send();
+		});
 
+	}
 }
+
+
 
 function $file_set_on_element(file, element){
 	element.files = file;
