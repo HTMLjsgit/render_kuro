@@ -6,19 +6,26 @@
 </head>
 <body>
 	<input type="file" id="file">
-	<img src="" class="img_files">
-	<img src="" class="img_files">
-	<audio src="" controls class="audio_files"></audio>
-	<audio src="" controls class="audio_files"></audio>
-	<br>
-	<br>
-	<br>
 
 	<button id="btn">Click here</button>
 
 
 	<h1 id="text"></h1>
+
+	<div class="auto-scroll">
+		<img src="1.png" id="auto-image">
+	</div>
+	<style>
+		#auto-image{
+			width: 300px;
+			height: 200px;
+			object-fit: cover;
+		}
+	</style>
+
 	<script src="render_kuro.js"></script>
+
+
 	<script>
 		let file_element = $get_id("file");
 		let img_files = $get_class("img_files");
@@ -51,11 +58,14 @@
 			});
 		});
 
+		$auto_scroll_image($get_id("auto-image"), ["1.png", "2.png", "3.png", "4.png"], 1);
 
 		$add_event($get_id("btn"),'click', function(e){
 			$text_on_element("HelloWorld", text);
 		});
 
 	</script>
+
+
 </body>
 </html>

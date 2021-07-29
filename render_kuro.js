@@ -61,9 +61,25 @@ function $file_change(file,change_name, callback){
 
 	}
 }
-
-
-
 function $file_set_on_element(file, element){
 	element.files = file;
 }
+
+function $auto_scroll_image(target_element,imgs, ms, animation_mode = false){
+	let number = 0;
+	if(animation_mode == false){
+		setInterval(function(){
+			if(imgs.length <= number){
+				number = 0;
+			}
+			target_element.src = imgs[number];
+			number++;
+			console.log("img_length: " + imgs.length);
+			console.log("number: " + number);
+
+		}, ms * 1000);
+	}
+
+}
+
+
